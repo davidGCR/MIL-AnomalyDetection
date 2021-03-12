@@ -40,6 +40,7 @@ class C3D(nn.Module):
             self.__load_pretrained_weights()
 
     def forward(self, x):
+        print('c3d input:', x.size())
         x = self.relu(self.conv1(x))
         x = self.pool1(x)
         x = self.relu(self.conv2(x))
@@ -55,7 +56,7 @@ class C3D(nn.Module):
         x = self.pool5(x)
         x = x.view(-1, 8192)
         x = self.relu(self.fc6(x))
-
+        print('c3d output:', x.size())
         return x
 
     def __load_pretrained_weights(self):

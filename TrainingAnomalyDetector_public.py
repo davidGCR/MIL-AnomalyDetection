@@ -93,6 +93,6 @@ if __name__ == "__main__":
     model.fit(train_iter=train_iter,
               criterion=criterion,
               optimizer=optimizer,
-              epochs=args.epochs,
-              network_model_path_base=args.models_dir,
+              epochs=10,
+              network_model_path_base= None,#args.models_dir,
               save_every=args.save_every)

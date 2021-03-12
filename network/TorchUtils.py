@@ -172,10 +172,13 @@ class TorchModel(nn.Module):
         self.train()
         self.notify_callbacks('on_epoch_start', epoch, len(data_iter))
         for iteration, (batch, targets) in enumerate(data_iter):
+            print("targets: ",targets)
+
             self.iteration += 1
             start_time = time.time()
             batch = self.data_to_device(batch, self.device)
             targets = self.data_to_device(targets, self.device)
+            
 
             outputs = self.model(batch)
 

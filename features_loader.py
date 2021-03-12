@@ -37,13 +37,15 @@ class FeaturesLoader(data.Dataset):
 
     def __getitem__(self, index):
         succ = False
-        while not succ:
-            try:
-                feature, label = self.get_feature(index)
-                succ = True
-            except Exception as e:
-                index = self.rng.choice(range(0, self.__len__()))
-                logging.warning("VideoIter:: ERROR!! (Force using another index:\n{})\n{}".format(index, e))
+        # while not succ:
+        #     try:
+        #         feature, label = self.get_feature(index)
+        #         succ = True
+        #     except Exception as e:
+        #         index = self.rng.choice(range(0, self.__len__()))
+        #         logging.warning("VideoIter:: ERROR!! (Force using another index:\n{})\n{}".format(index, e))
+        feature, label = self.get_feature(index)
+        succ = True
 
         return feature, label
 

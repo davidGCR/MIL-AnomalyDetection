@@ -37,7 +37,7 @@ def get_args():
 	# model
 	parser.add_argument('--model_type',
 						type=str,
-						required=True,
+						default= 'c3d',
 						help="type of feature extractor",
 						choices=['c3d', 'i3d', 'mfnet'])
 	parser.add_argument('--pretrained_3d',
@@ -161,7 +161,7 @@ def main():
 	cudnn.benchmark = True
 
 	data_loader, data_iter = get_features_loader(args.dataset_path,
-												args.clip_length,
+												args.clip_length,#16
 												args.frame_interval,
 												args.batch_size,
 												args.num_workers,
@@ -177,6 +177,12 @@ def main():
 	with torch.no_grad():
 		for data, clip_idxs, dirs, vid_names in data_iter:
 			outputs = network(data.to(device)).detach().cpu().numpy()
+			# video, clip_idx, dir, file
+			# print('outputs: ', outputs.shape)
+			# print('clip_idxs: ', clip_idxs)
+			# print('dirs: ', dirs)
+			# print('vid_names: ', vid_names)
+
 
 			for i, (dir, vid_name, clip_idx) in enumerate(zip(dirs, vid_names, clip_idxs)):
 				if loop_i == 0:
@@ -191,7 +197,7 @@ def main():
 									  idx=clip_idx,
 									  dir=dir, )
 
-	features_writer.dump()
+	# features_writer.dump()
 
 
 if __name__ == "__main__":
